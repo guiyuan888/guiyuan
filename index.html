@@ -3,12 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>我的网站</title>
+  <title>猫猫虎互动页面</title>
   <style>
+    /* 页面整体 */
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: url('https://picsum.photos/1920/1080') no-repeat center center fixed;
+      background: url('https://ftp.mioz.cn/test/2025/08/22/1755850373.JPG') no-repeat center center fixed;
       background-size: cover;
       color: white;
       text-align: center;
@@ -18,32 +19,138 @@
       justify-content: center;
       align-items: center;
     }
+
+    /* 标题 */
     h1 {
-      font-size: 2.5em;
-      margin-bottom: 20px;
-    }
-    p {
-      font-size: 1.2em;
+      font-size: 3em;
       margin-bottom: 40px;
-      max-width: 80%;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
     }
+
+    /* 按钮样式 */
     .btn {
       display: inline-block;
-      padding: 12px 24px;
-      background-color: #007BFF;
+      padding: 14px 28px;
+      margin: 10px;
       color: white;
       text-decoration: none;
-      border-radius: 6px;
-      font-size: 1em;
+      border-radius: 8px;
+      font-size: 1.1em;
+      font-weight: bold;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+      transition: background-color 0.3s ease;
     }
-    .btn:hover {
+
+    .btn-dislike {
+      background-color: #007BFF; /* 蓝色 */
+    }
+
+    .btn-dislike:hover {
       background-color: #0056b3;
+    }
+
+    .btn-superlike {
+      background-color: #DC3545; /* 红色 */
+    }
+
+    .btn-superlike:hover {
+      background-color: #C82333;
+    }
+
+    /* 猫咪表情 - 放在背景图“空白处”，居中但稍微下移 */
+    .cat-emoji {
+      font-size: 4em;
+      margin-top: 120px; /* 调整这个值可以控制垂直位置 */
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+      display: none; /* 初始隐藏 */
+    }
+
+    /* 音频标签（背景音乐） */
+    #bgMusic {
+      position: absolute;
+      top: -1000px;
+      left: -1000px;
+      opacity: 0;
+      pointer-events: none;
     }
   </style>
 </head>
 <body>
-  <h1>欢迎来到我的网站</h1>
-  <p>这是一个简单、美观的单页展示网站，你可以自定义背景、文字和按钮。</p>
-  <a class="btn" href="https://example.com">点击这里</a>
+
+  <!-- 标题 -->
+  <h1 id="title">你喜欢猫猫虎吗</h1>
+
+  <!-- 两个互动按钮 -->
+  <div id="buttons">
+    <a class="btn btn-dislike" href="#" onclick="handleDislike(); return false;">不喜欢</a>
+    <a class="btn btn-superlike" href="#" onclick="handleSuperlike(); return false;">超级喜欢</a>
+  </div>
+
+  <!-- 猫咪表情（点击后显示） -->
+  <div id="catReaction" class="cat-emoji"></div>
+
+  <!-- 背景音乐（使用你提供的 MP3 直链） -->
+  <audio id="bgMusic" loop>
+    <source src="https://c2.cloud887325.com/1755851572450/179060/df2123a6385bf0f21d665881e4b8bc5d.mp3" type="audio/mpeg">
+    您的浏览器不支持音频播放。
+  </audio>
+
+  <!-- 音效 -->
+  <audio id="happySound" preload="auto">
+    <source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.wav" type="audio/wav">
+  </audio>
+  <audio id="sadSound" preload="auto">
+    <source src="https://www.soundjay.com/misc/sounds/fail-buzzer-02.wav" type="audio/wav">
+  </audio>
+
+  <script>
+    // 处理“超级喜欢”按钮点击
+    function handleSuperlike() {
+      // 1. 切换背景图
+      document.body.style.backgroundImage = "url('https://ftp.mioz.cn/test/2025/08/22/1755849989.JPG')";
+
+      // 2. 播放开心音效
+      const happyAudio = document.getElementById('happySound');
+      happyAudio.play().catch(() => {});
+
+      // 3. 显示开心猫咪表情 😸
+      const catDiv = document.getElementById('catReaction');
+      catDiv.textContent = '😸';
+      catDiv.style.display = 'block';
+
+      // 4. 隐藏标题和按钮
+      document.getElementById('title').style.display = 'none';
+      document.getElementById('buttons').style.display = 'none';
+
+      // 5. 播放背景音乐
+      const bgMusic = document.getElementById('bgMusic');
+      bgMusic.play().catch(() => {});
+    }
+
+    // 处理“不喜欢”按钮点击
+    function handleDislike() {
+      // 1. 切换背景图
+      document.body.style.backgroundImage = "url('https://ftp.mioz.cn/test/2025/08/22/1755850672.JPG')";
+
+      // 2. 播放失败音效
+      const sadAudio = document.getElementById('sadSound');
+      sadAudio.play().catch(() => {});
+
+      // 3. 显示流泪猫咪表情 😿
+      const catDiv = document.getElementById('catReaction');
+      catDiv.textContent = '😿';
+      catDiv.style.display = 'block';
+
+      // 4. 隐藏标题和按钮
+      document.getElementById('title').style.display = 'none';
+      document.getElementById('buttons').style.display = 'none';
+
+      // 5. 播放背景音乐
+      const bgMusic = document.getElementById('bgMusic');
+      bgMusic.play().catch(() => {});
+    }
+  </script>
+
 </body>
 </html>
+
